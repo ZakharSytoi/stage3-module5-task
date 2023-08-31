@@ -74,7 +74,7 @@ public class AuthorController implements BaseRestController<AuthorDtoRequest, Au
     }
 
     @Override
-    @PutMapping(value = "/{id:\\d+}")
+    @PatchMapping(value = "/{id:\\d+}")
     @ApiOperation(value = "Update author")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Author successfully updated"),

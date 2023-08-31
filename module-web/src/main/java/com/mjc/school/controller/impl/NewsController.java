@@ -82,7 +82,7 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     @GetMapping("/{id:\\d+}/comments")
     @ApiOperation(value = "Retrieve comments by news id")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Comments successfully retrieved"),
+            @ApiResponse(code = 200, message = "Comments successfully retrieved"),
             @ApiResponse(code = 404, message = "Bad request"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
@@ -96,7 +96,7 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     @GetMapping("/{id:\\d+}/news")
     @ApiOperation(value = "Retrieve author by news id")
     @ApiResponses({
-            @ApiResponse(code = 201, message = "Author successfully retrieved"),
+            @ApiResponse(code = 200, message = "Author successfully retrieved"),
             @ApiResponse(code = 404, message = "Bad request"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
