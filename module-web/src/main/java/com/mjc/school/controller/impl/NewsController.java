@@ -7,10 +7,11 @@ import com.mjc.school.service.NewsService;
 import com.mjc.school.service.TagService;
 import com.mjc.school.service.dto.*;
 import com.mjc.school.service.query.NewsQueryParams;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/news-management-api/v1/news")
-@Tag(name = "News", description = "Allows creating, retrieving, updating and deleting News")
+@Api(value = "Allows creating, retrieving, updating and deleting News")
 public class NewsController implements BaseRestController<NewsDtoRequest, NewsDtoResponse, Long> {
     private final NewsService newsService;
     private final CommentService commentService;
@@ -33,11 +34,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
 
     @Override
     @GetMapping
-    @Operation(summary = "retrieve all news")
+    @ApiOperation(value = "retrieve all news")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "News successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "News successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<Page<NewsDtoResponse>> readAll(
             @RequestParam(required = false, defaultValue = "0")
@@ -51,11 +52,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
 
     @Override
     @GetMapping(value = "/{id:\\d+}")
-    @Operation(summary = "Retrieve particular news by id")
+    @ApiOperation(value = "Retrieve particular news by id")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "News successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "News successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<NewsDtoResponse> readById(
             @PathVariable
@@ -65,11 +66,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Retrieve news by params")
+    @ApiOperation(value = "Retrieve news by params")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "News successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "News successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<List<NewsDtoResponse>> readByQueryParams(
             @RequestBody
@@ -79,11 +80,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     }
 
     @GetMapping("/{id:\\d+}/comments")
-    @Operation(summary = "Retrieve comments by news id")
+    @ApiOperation(value = "Retrieve comments by news id")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Comments successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 201, message = "Comments successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<List<CommentDtoResponse>> readCommentsByNewsId(
             @PathVariable
@@ -93,22 +94,22 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     }
 
     @GetMapping("/{id:\\d+}/news")
-    @Operation(summary = "Retrieve author by news id")
+    @ApiOperation(value = "Retrieve author by news id")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Author successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 201, message = "Author successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<AuthorDtoResponse> readAuthorByNewsId(@PathVariable Long id) {
         return new ResponseEntity<>(authorService.readByNewsId(id), HttpStatus.OK);
     }
 
     @GetMapping("/{id:\\d+}/tags")
-    @Operation(summary = "retrieve tags by news id")
+    @ApiOperation(value = "retrieve tags by news id")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "tags successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "tags successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<List<TagDtoResponse>> readTagsByNewsId(
             @PathVariable
@@ -120,11 +121,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create news")
+    @ApiOperation(value = "Create news")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "News successfully created"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 201, message = "News successfully created"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<NewsDtoResponse> create(
             @RequestBody
@@ -135,11 +136,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
 
     @Override
     @PutMapping(value = "/{id:\\d+}")
-    @Operation(summary = "Update news")
+    @ApiOperation(value = "Update news")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "News successfully updated"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "News successfully updated"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<NewsDtoResponse> update(
             @PathVariable
@@ -158,11 +159,11 @@ public class NewsController implements BaseRestController<NewsDtoRequest, NewsDt
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete news")
+    @ApiOperation(value = "Delete news")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "News successfully deleted"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 204, message = "News successfully deleted"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public void deleteById(
             @PathVariable

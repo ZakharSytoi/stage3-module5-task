@@ -12,7 +12,8 @@ dependencies {
 
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.5.1'
 
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
 
 }

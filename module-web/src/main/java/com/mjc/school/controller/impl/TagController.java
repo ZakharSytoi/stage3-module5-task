@@ -4,10 +4,11 @@ import com.mjc.school.controller.BaseRestController;
 import com.mjc.school.service.TagService;
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
-import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,18 +20,18 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/news-management-api/v1/tags")
-@Tag(name = "Tags", description = "Allows creating, retrieving, updating and deleting tags")
+@Api(value = "Allows creating, retrieving, updating and deleting tags")
 public class TagController implements BaseRestController<TagDtoRequest, TagDtoResponse, Long> {
 
     private final TagService tagService;
 
     @Override
     @GetMapping
-    @Operation(summary = "retrieve all tags")
+    @ApiOperation(value = "retrieve all tags")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tags successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "Tags successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<Page<TagDtoResponse>> readAll(
             @RequestParam(required = false, defaultValue = "0")
@@ -44,11 +45,11 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
 
     @Override
     @GetMapping(value = "/{id:\\d+}")
-    @Operation(summary = "Retrieve particular tag by id")
+    @ApiOperation(value = "Retrieve particular tag by id")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tag successfully retrieved"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "Tag successfully retrieved"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<TagDtoResponse> readById(
             @PathVariable
@@ -61,11 +62,11 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create tag")
+    @ApiOperation(value = "Create tag")
     @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Tag successfully created"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 201, message = "Tag successfully created"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<TagDtoResponse> create(
             @RequestBody
@@ -76,11 +77,11 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
 
     @Override
     @PutMapping(value = "/{id:\\d+}")
-    @Operation(summary = "Update tag")
+    @ApiOperation(value = "Update tag")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Tag successfully updated"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 200, message = "Tag successfully updated"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public ResponseEntity<TagDtoResponse> update(
             @PathVariable
@@ -97,11 +98,11 @@ public class TagController implements BaseRestController<TagDtoRequest, TagDtoRe
     @Override
     @DeleteMapping(value = "/{id:\\d+}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete tag")
+    @ApiOperation(value = "Delete tag")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Tag successfully deleted"),
-            @ApiResponse(responseCode = "404", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
+            @ApiResponse(code = 204, message = "Tag successfully deleted"),
+            @ApiResponse(code = 404, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
     })
     public void deleteById(
             @PathVariable
